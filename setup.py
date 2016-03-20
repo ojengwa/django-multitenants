@@ -28,7 +28,7 @@ setup(
     scripts=[],
     url='https://github.com/ojengwa/django-multitenants.git',
     license='MIT',
-    description='Tenant support for Django using PostgreSQL schemas. Supports url patterns as well as sub-domains. Inspired by django-tenant-schemas.',
+    description='Tenant support for Django using PostgreSQL schemas. Supports url patterns as well as sub-domains. Inspired by django-multitenants.',
     long_description=open('README.rst').read() if exists("README.rst") else "",
     classifiers=[
         'License :: OSI Approved :: MIT License',
