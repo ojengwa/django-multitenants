@@ -1,5 +1,5 @@
 ===========================
-Using django-tenant-schemas
+Using django-multitenants
 ===========================
 Creating a Tenant
 -----------------
@@ -68,7 +68,7 @@ To run only a particular schema, there is an optional argument called ``--schema
 
     ./manage.py sync_schemas --schema=customer1
 
-migrate_schemas    
+migrate_schemas
 ~~~~~~~~~~~~~~~
 
 If you're on Django 1.7 or newer, ``migrate_schemas`` is the most important command on this app. The way it works is that it calls Django's ``migrate`` in two different ways. First, it calls ``migrate`` for the ``public`` schema, only syncing the shared apps. Then it runs ``migrate`` for every tenant in the database, this time only syncing the tenant apps.
@@ -122,8 +122,8 @@ If you don't specify a schema, you will be prompted to enter one. Otherwise, you
 .. code-block:: bash
 
     ./manage.py tenant_command loaddata --schema=customer1
-    
-createsuperuser   
+
+createsuperuser
 ~~~~~~~~~~~~~~~
 
 The command ``createsuperuser`` is already automatically wrapped to have a ``schema`` flag. Create a new super user with
@@ -156,7 +156,7 @@ The hook for ensuring the ``search_path`` is set properly happens inside the ``D
     #in settings.py:
     TENANT_LIMIT_SET_CALLS = True
 
-When set, ``django-tenant-schemas`` will set the search path only once per request. The default is ``False``.
+When set, ``django-multitenants`` will set the search path only once per request. The default is ``False``.
 
 
 Third Party Apps
