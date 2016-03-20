@@ -39,10 +39,12 @@ class BaseTenantCommand(BaseCommand):
                 make_option("-s", "--schema", dest="schema_name"),
             )
             obj.option_list += (
-                make_option("-p", "--skip-public", dest="skip_public", action="store_true", default=False),
+                make_option(
+                    "-p", "--skip-public", dest="skip_public", action="store_true", default=False),
             )
 
-        # prepend the command's original help with the info about schemata iteration
+        # prepend the command's original help with the info about schemata
+        # iteration
         obj.help = "Calls %s for all registered schemata. You can use regular %s options. " \
                    "Original help for %s: %s" % (obj.COMMAND_NAME, obj.COMMAND_NAME, obj.COMMAND_NAME,
                                                  getattr(cmdclass, 'help', 'none'))
@@ -51,7 +53,8 @@ class BaseTenantCommand(BaseCommand):
     def add_arguments(self, parser):
         super(BaseTenantCommand, self).add_arguments(parser)
         parser.add_argument("-s", "--schema", dest="schema_name")
-        parser.add_argument("-p", "--skip-public", dest="skip_public", action="store_true", default=False)
+        parser.add_argument(
+            "-p", "--skip-public", dest="skip_public", action="store_true", default=False)
 
     def execute_command(self, tenant, command_name, *args, **options):
         verbosity = int(options.get('verbosity'))
@@ -79,7 +82,8 @@ class BaseTenantCommand(BaseCommand):
         else:
             for tenant in get_tenant_model().objects.all():
                 if not (options['skip_public'] and tenant.schema_name == get_public_schema_name()):
-                    self.execute_command(tenant, self.COMMAND_NAME, *args, **options)
+                    self.execute_command(
+                        tenant, self.COMMAND_NAME, *args, **options)
 
 
 class InteractiveTenantOption(object):
@@ -87,11 +91,13 @@ class InteractiveTenantOption(object):
         super(InteractiveTenantOption, self).__init__(*args, **kwargs)
         if django.VERSION < (1, 8, 0):
             self.option_list += (
-                make_option("-s", "--schema", dest="schema_name", help="specify tenant schema"),
+                make_option(
+                    "-s", "--schema", dest="schema_name", help="specify tenant schema"),
             )
 
     def add_arguments(self, parser):
-        parser.add_argument("-s", "--schema", dest="schema_name", help="specify tenant schema")
+        parser.add_argument(
+            "-s", "--schema", dest="schema_name", help="specify tenant schema")
 
     def get_tenant_from_options_or_interactive(self, **options):
         TenantModel = get_tenant_model()
@@ -100,20 +106,23 @@ class InteractiveTenantOption(object):
         if not all_tenants:
             raise CommandError("""There are no tenants in the system.
 To learn how create a tenant, see:
-https://django-tenant-schemas.readthedocs.org/en/latest/use.html#creating-a-tenant""")
+https://django-multitenants.readthedocs.org/en/latest/use.html#creating-a-tenant""")
 
         if options.get('schema_name'):
             tenant_schema = options['schema_name']
         else:
             while True:
-                tenant_schema = input("Enter Tenant Schema ('?' to list schemas): ")
+                tenant_schema = input(
+                    "Enter Tenant Schema ('?' to list schemas): ")
                 if tenant_schema == '?':
-                    print('\n'.join(["%s - %s" % (t.schema_name, t.domain_url,) for t in all_tenants]))
+                    print(
+                        '\n'.join(["%s - %s" % (t.schema_name, t.domain_url,) for t in all_tenants]))
                 else:
                     break
 
         if tenant_schema not in [t.schema_name for t in all_tenants]:
-            raise CommandError("Invalid tenant schema, '%s'" % (tenant_schema,))
+            raise CommandError(
+                "Invalid tenant schema, '%s'" % (tenant_schema,))
 
         return TenantModel.objects.get(schema_name=tenant_schema)
 
@@ -166,14 +175,14 @@ class SyncCommon(BaseCommand):
     def add_arguments(self, parser):
         # for django 1.8 and above
         parser.add_argument('--tenant', action='store_true', dest='tenant', default=False,
-                    help='Tells Django to populate only tenant applications.')
+                            help='Tells Django to populate only tenant applications.')
         parser.add_argument('--shared', action='store_true', dest='shared', default=False,
-                    help='Tells Django to populate only shared applications.')
+                            help='Tells Django to populate only shared applications.')
         parser.add_argument('--app_label', action='store', dest='app_label', nargs='?',
-                    help='App label of an application to synchronize the state.')
+                            help='App label of an application to synchronize the state.')
         parser.add_argument('--migration_name', action='store', dest='migration_name', nargs='?',
-                    help=('Database state will be brought to the state after that '
-                          'migration. Use the name "zero" to unapply all migrations.'))
+                            help=('Database state will be brought to the state after that '
+                                  'migration. Use the name "zero" to unapply all migrations.'))
         parser.add_argument("-s", "--schema", dest="schema_name")
 
     def handle(self, *args, **options):
@@ -186,7 +195,8 @@ class SyncCommon(BaseCommand):
 
         if self.schema_name:
             if self.sync_public:
-                raise CommandError("schema should only be used with the --tenant switch.")
+                raise CommandError(
+                    "schema should only be used with the --tenant switch.")
             elif self.schema_name == get_public_schema_name():
                 self.sync_public = True
             else:
