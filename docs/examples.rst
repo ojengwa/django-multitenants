@@ -3,7 +3,7 @@ Examples
 ===========================
 Tenant Tutorial
 -----------------
-This app comes with an interactive tutorial to teach you how to use ``django-multitenants`` and to demonstrate its capabilities. This example project is available under `examples/tenant_tutorial <https://github.com/bernardopires/django-multitenants/blob/master/examples/tenant_tutorial>`_. You will only need to edit the ``settings.py`` file to configure the ``DATABASES`` variable and then you're ready to run
+This app comes with an interactive tutorial to teach you how to use ``django-multitenants`` and to demonstrate its capabilities. This example project is available under `examples/tenant_tutorial <https://github.com/ojengwa/django-multitenants/blob/master/examples/tenant_tutorial>`_. You will only need to edit the ``settings.py`` file to configure the ``DATABASES`` variable and then you're ready to run
 
 .. code-block:: bash
 
