@@ -98,8 +98,10 @@ class TenantMixin(models.Model):
                              interactive=False,
                              verbosity=verbosity)
             else:
-                # default is faking all migrations and syncing directly to the current models state
-                fake_all_migrations = getattr(settings, 'TENANT_CREATION_FAKES_MIGRATIONS', True)
+                # default is faking all migrations and syncing directly to the
+                # current models state
+                fake_all_migrations = getattr(
+                    settings, 'TENANT_CREATION_FAKES_MIGRATIONS', True)
                 call_command('sync_schemas',
                              schema_name=self.schema_name,
                              tenant=True,
