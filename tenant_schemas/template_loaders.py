@@ -56,13 +56,15 @@ class CachedLoader(BaseLoader):
                 key = '-'.join([str(connection.tenant.pk), template_name,
                                 hashlib.sha1(force_bytes('|'.join(template_dirs))).hexdigest()])
             else:
-                key = '-'.join([template_name, hashlib.sha1(force_bytes('|'.join(template_dirs))).hexdigest()])
+                key = '-'.join([template_name,
+                                hashlib.sha1(force_bytes('|'.join(template_dirs))).hexdigest()])
 
         if key not in self.template_cache:
             template, origin = self.find_template(template_name, template_dirs)
             if not hasattr(template, 'render'):
                 try:
-                    template = get_template_from_string(template, origin, template_name)
+                    template = get_template_from_string(
+                        template, origin, template_name)
                 except TemplateDoesNotExist:
                     # If compiling the template we found raises TemplateDoesNotExist,
                     # back off to returning the source and display name for the template
@@ -101,7 +103,8 @@ class FilesystemLoader(BaseLoader):
                 else:
                     yield safe_join(template_dir, connection.tenant.domain_url, template_name)
             except UnicodeDecodeError:
-                # The template dir name was a bytestring that wasn't valid UTF-8.
+                # The template dir name was a bytestring that wasn't valid
+                # UTF-8.
                 raise
             except ValueError:
                 # The joined path was located outside of this particular
