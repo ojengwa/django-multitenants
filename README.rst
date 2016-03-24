@@ -138,6 +138,8 @@ being synced (shared or tenant).
 
 Add ``tenant_schemas`` to your ``INSTALLED_APPS``.
 
+Optionally, you can add ``TENANT_BASE_PATH`` attribute which should specify the base path for your tenant if you would rather reprenset your tenants as url paths instead of subdomains.
+
 Create your tenant model
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
