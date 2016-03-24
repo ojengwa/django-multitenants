@@ -62,7 +62,7 @@ database. If there’s a match, the search path is updated to use this
 tenant’s schema. So from now on all queries will take place at the
 tenant’s schema. For example, suppose you have a tenant ``customer`` at
 http://customer.example.com or http://*.example.com/<tenant_base_path/customer. Any request incoming at
-``customer.example.com`` will automatically use ``customer``\ ’s schema
+``customer.example.com`` or ``http://*.example.com/<tenant_base_path/customer`` will automatically use ``customer``\ ’s schema
 and make the tenant available at the request. If no tenant is found, a
 404 error is raised. This also means you should have a tenant for your
 main domain, typically using the ``public`` schema. For more information
