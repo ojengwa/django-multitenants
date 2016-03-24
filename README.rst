@@ -87,7 +87,7 @@ shared between all.
 Tenant View-Routing
 ~~~~~~~~~~~~~~~~~~~
 
-You can have different views for ``http://customer.example.com/`` and
+You can have different views for ``http://customer.example.com/``\``http://*.example.com/<tenant_base_path/customers`` and
 ``http://example.com/``, even though Django only uses the string after
 the host name to identify which view to serve.
 
