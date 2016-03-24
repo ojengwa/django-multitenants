@@ -55,7 +55,7 @@ Architecture`_.
 How it works
 ------------
 
-Tenants are identified via their host name (i.e tenant.domain.com). This
+Tenants are identified via their host name (i.e tenant.domain.com) or a special url path (any path after the base path as specified in the . This
 information is stored on a table on the ``public`` schema. Whenever a
 request is made, the host name is used to match a tenant in the
 database. If there’s a match, the search path is updated to use this
