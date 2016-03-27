@@ -5,5 +5,5 @@
 VERSION
 _build/
 dist/
-django_multitenants.egg-info
+*.egg-info
 .idea/
