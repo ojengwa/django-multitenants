@@ -54,7 +54,10 @@ class CachedLoader(BaseLoader):
             # differentiate
             if connection.tenant:
                 key = '-'.join([str(connection.tenant.pk), template_name,
-                                hashlib.sha1(force_bytes('|'.join(template_dirs))).hexdigest()])
+                                hashlib.sha1(
+                    force_bytes('|'.join(
+                        template_dirs)))
+                    .hexdigest()])
             else:
                 key = '-'.join([template_name,
                                 hashlib.sha1(
