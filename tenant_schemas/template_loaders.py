@@ -57,7 +57,9 @@ class CachedLoader(BaseLoader):
                                 hashlib.sha1(force_bytes('|'.join(template_dirs))).hexdigest()])
             else:
                 key = '-'.join([template_name,
-                                hashlib.sha1(force_bytes('|'.join(template_dirs))).hexdigest()])
+                                hashlib.sha1(
+                                    force_bytes('|'.join(template_dirs)))
+                                .hexdigest()])
 
         if key not in self.template_cache:
             template, origin = self.find_template(template_name, template_dirs)
